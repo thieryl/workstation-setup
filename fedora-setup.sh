@@ -36,8 +36,15 @@ gsettings set org.gnome.desktop.session idle-delay 1800 # lock screen
 
 
 # setup the rpmfusion 
-sudo dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm gnome-tweak-tool terminator
+$ sudo bash -c 'cat > /etc/yum.repos.d/onlyoffice.repo << 'EOF'
+[onlyoffice]
+name=onlyoffice repo
+baseurl=http://download.onlyoffice.com/repo/centos/main/noarch/
+gpgcheck=1
+enabled=1
+EOF'
 
+sudo dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm gnome-tweak-tool terminator flameshot onlyoffice-desktopeditors unzip p7zip youtube-dl vlc 
 # setup shell environments 
 mkdir $HOME/Projects 
 
@@ -63,3 +70,18 @@ source .bashrc
 # Setup Visual Studio Code 
 vs_ci
 code-insiders --install-extension Shan.code-settings-sync
+
+# setup vim 
+cd /tmp/; git clone https://github.com/tomasr/molokai.git
+sudo dnf install vim vim-plugin-powerline
+sudo cp molokai/colors/molokai.vim /usr/share/vim/vim81/colors/
+mkdir ~/.vim/bundle
+cd ~/.vim/bundle
+git clone https://github.com/VundleVim/Vundle.vim.git
+git clone https://github.com/Valloric/YouCompleteMe.git
+sudo dnf install automake gcc gcc-c++ kernel-devel cmake python-devel
+cd ~/.vim/bundle/YouCompleteMe
+git submodule update --init --recursive
+/usr/bin/python ./install.py --clang-completer --go-completer --java-completer
+vim +PluginInstall +qall
+sudo dnf install ncurses-compat-libs
