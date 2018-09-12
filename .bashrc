@@ -9,6 +9,10 @@ fi
 # export SYSTEMD_PAGER=
 
 # User specific aliases and functions
+# pipenv settings 
+export PIPENV_VENV_IN_PROJECT=true
+
+
 # bash powerline 
 function _update_ps1() {
     PS1=$(powerline-shell $?)

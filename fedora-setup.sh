@@ -71,17 +71,3 @@ source .bashrc
 vs_ci
 code-insiders --install-extension Shan.code-settings-sync
 
-# setup vim 
-cd /tmp/; git clone https://github.com/tomasr/molokai.git
-sudo dnf install vim vim-plugin-powerline
-sudo cp molokai/colors/molokai.vim /usr/share/vim/vim81/colors/
-mkdir ~/.vim/bundle
-cd ~/.vim/bundle
-git clone https://github.com/VundleVim/Vundle.vim.git
-git clone https://github.com/Valloric/YouCompleteMe.git
-sudo dnf install automake gcc gcc-c++ kernel-devel cmake python-devel
-cd ~/.vim/bundle/YouCompleteMe
-git submodule update --init --recursive
-/usr/bin/python ./install.py --clang-completer --go-completer --java-completer
-vim +PluginInstall +qall
-sudo dnf install ncurses-compat-libs

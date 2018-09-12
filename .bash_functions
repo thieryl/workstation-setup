@@ -251,3 +251,30 @@ function vsc() {
         code "$@"
     fi
 }
+
+# setup flask project 
+function cf_env() {
+	if [ $# -eq 0 ]; then 
+		touch ${PWD}/.env ${PWD}/.env.leave
+		echo "Creating a Python3 Virtual environment"
+		pipenv --three
+		echo "source .venv/bin/activate" >.env
+		echo "deactivate" >.env.leave
+	else 
+		touch ${PWD}/.env ${PWD}/.env.leave
+		echo "Creating a Python Virtual environment"
+		pipenv --two
+		echo "source .venv/bin/activate" >.env
+		echo "deactivate" >.env.leave
+	fi
+		
+
+}
+
+# Download Oracle Jdk Version 
+function jdk_dload() {
+wget --no-cookies --no-check-certificate --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; \
+	oraclelicense=accept-securebackup-cookie" \
+	"http://download.oracle.com/otn-pub/java/jdk/10.0.1+10/fb4372174a714e6b8c52526dc134031e/jdk-10.0.1_linux-x64_bin.tar.gz"
+}
+
